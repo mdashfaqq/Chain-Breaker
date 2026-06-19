@@ -1,0 +1,87 @@
+version: '3.8'
+
+# =============================================================
+# M3 — ChainBreaker Attack Module
+# File   : docker-compose.yml
+# Purpose: Deploy Keycloak + PostgreSQL as attack target lab
+# Author : Member 3 — Attacker
+# Usage  : docker-compose up -d
+# Access : http://localhost:8080  →  admin / admin123
+# =============================================================
+
+services:
+
+  # ── PostgreSQL — Keycloak backend DB ──────────────────────
+  postgres:
+    image: postgres:15
+    container_name: chainbreaker_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chainbreaker_net
+    ports:
+      - "5432:5432"        # Exposed for sqlmap direct DB access
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Keycloak — IAM / Auth target ──────────────────────────
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: chainbreaker_keycloak
+    restart: unless-stopped
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak_pass
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_LOG_LEVEL: INFO
+    ports:
+      - "8080:8080"        # Main auth endpoint — hydra target
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - chainbreaker_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # ── Vulnerable Web App — sqlmap target ────────────────────
+  vuln-app:
+    image: webgoat/goat-and-wolf:latest
+    container_name: chainbreaker_webapp
+    restart: unless-stopped
+    ports:
+      - "9090:8080"        # SQLi target endpoint
+    networks:
+      - chainbreaker_net
+
+# ── Shared network ─────────────────────────────────────────
+networks:
+  chainbreaker_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+# ── Persistent volumes ─────────────────────────────────────
+volumes:
+  postgres_data:
+    driver: local
