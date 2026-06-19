@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="monospace, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="620" fill="#0d1117" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#e6edf3">M3 — ChainBreaker Attack Architecture</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11" fill="#8b949e">Kali Linux Attacker → Target Network (Docker Lab)</text>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- ATTACKER ZONE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <rect x="30" y="76" width="240" height="480" rx="12" fill="#1a0a0a" stroke="#e24b4a" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="150" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#e24b4a">Kali Linux</text>
+  <text x="150" y="116" text-anchor="middle" font-size="10" fill="#8b949e">Attacker Machine</text>
+
+  <!-- nmap box -->
+  <rect x="50" y="132" width="200" height="72" rx="8" fill="#2d0f0f" stroke="#e24b4a" stroke-width="1"/>
+  <text x="150" y="154" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff7b72">nmap</text>
+  <text x="150" y="170" text-anchor="middle" font-size="10" fill="#8b949e">Host discovery</text>
+  <text x="150" y="184" text-anchor="middle" font-size="10" fill="#8b949e">Port + service scan</text>
+  <text x="150" y="198" text-anchor="middle" font-size="9" fill="#6e7681">nmap_scan.sh</text>
+
+  <!-- hydra box -->
+  <rect x="50" y="220" width="200" height="72" rx="8" fill="#2d0f0f" stroke="#e24b4a" stroke-width="1"/>
+  <text x="150" y="242" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff7b72">hydra</text>
+  <text x="150" y="258" text-anchor="middle" font-size="10" fill="#8b949e">SSH brute force</text>
+  <text x="150" y="272" text-anchor="middle" font-size="10" fill="#8b949e">HTTP form attack</text>
+  <text x="150" y="286" text-anchor="middle" font-size="9" fill="#6e7681">hydra_attack.sh</text>
+
+  <!-- sqlmap box -->
+  <rect x="50" y="308" width="200" height="72" rx="8" fill="#2d0f0f" stroke="#e24b4a" stroke-width="1"/>
+  <text x="150" y="330" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff7b72">sqlmap</text>
+  <text x="150" y="346" text-anchor="middle" font-size="10" fill="#8b949e">SQL injection scan</text>
+  <text x="150" y="360" text-anchor="middle" font-size="10" fill="#8b949e">DB dump + exploit</text>
+  <text x="150" y="374" text-anchor="middle" font-size="9" fill="#6e7681">sqlmap_attack.sh</text>
+
+  <!-- wordlists box -->
+  <rect x="50" y="396" width="200" height="56" rx="8" fill="#161b22" stroke="#484f58" stroke-width="1"/>
+  <text x="150" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c9d1d9">Wordlists</text>
+  <text x="150" y="438" text-anchor="middle" font-size="10" fill="#8b949e">rockyou.txt  /  users.txt</text>
+
+  <!-- scripts box -->
+  <rect x="50" y="468" width="200" height="56" rx="8" fill="#161b22" stroke="#484f58" stroke-width="1"/>
+  <text x="150" y="492" text-anchor="middle" font-size="12" font-weight="bold" fill="#c9d1d9">Attack scripts</text>
+  <text x="150" y="510" text-anchor="middle" font-size="10" fill="#8b949e">workflows/scripts/*.sh</text>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- TARGET ZONE -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <rect x="340" y="76" width="530" height="480" rx="12" fill="#0a0d1a" stroke="#1f6feb" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="605" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f6feb">Target Network</text>
+  <text x="605" y="116" text-anchor="middle" font-size="10" fill="#8b949e">192.168.1.0/24</text>
+
+  <!-- Open ports discovery -->
+  <rect x="360" y="132" width="200" height="64" rx="8" fill="#0f1f2e" stroke="#1f6feb" stroke-width="1"/>
+  <text x="460" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#79c0ff">Discovered ports</text>
+  <text x="460" y="170" text-anchor="middle" font-size="10" fill="#8b949e">:22  SSH</text>
+  <text x="460" y="184" text-anchor="middle" font-size="10" fill="#8b949e">:8080  HTTP (Keycloak)</text>
+
+  <!-- Docker host container -->
+  <rect x="360" y="216" width="490" height="300" rx="10" fill="#0d1929" stroke="#388bfd" stroke-width="1"/>
+  <text x="605" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#388bfd">Docker host</text>
+  <text x="605" y="254" text-anchor="middle" font-size="10" fill="#6e7681">docker-compose up -d</text>
+
+  <!-- Keycloak container -->
+  <rect x="378" y="266" width="220" height="100" rx="8" fill="#1a0d2e" stroke="#8957e5" stroke-width="1"/>
+  <text x="488" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#d2a8ff">Keycloak :8080</text>
+  <text x="488" y="306" text-anchor="middle" font-size="10" fill="#8b949e">IAM / SSO / OAuth2</text>
+  <text x="488" y="320" text-anchor="middle" font-size="10" fill="#8b949e">/auth/realms/master</text>
+  <text x="488" y="336" text-anchor="middle" font-size="9" fill="#6e7681">chainbreaker_keycloak</text>
+  <text x="488" y="354" text-anchor="middle" font-size="9" fill="#6e7681">admin / admin123</text>
+
+  <!-- Arrow Keycloak → Postgres -->
+  <line x1="488" y1="366" x2="488" y2="388" stroke="#484f58" stroke-width="1.5" marker-end="url(#tip)"/>
+  <text x="500" y="380" font-size="9" fill="#6e7681">JDBC</text>
+
+  <!-- PostgreSQL container -->
+  <rect x="378" y="388" width="220" height="100" rx="8" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="488" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#56d364">PostgreSQL :5432</text>
+  <text x="488" y="428" text-anchor="middle" font-size="10" fill="#8b949e">DB: keycloak</text>
+  <text x="488" y="444" text-anchor="middle" font-size="10" fill="#8b949e">user_entity, credential</text>
+  <text x="488" y="460" text-anchor="middle" font-size="9" fill="#6e7681">chainbreaker_db</text>
+  <text x="488" y="474" text-anchor="middle" font-size="9" fill="#6e7681">user: keycloak / keycloak_pass</text>
+
+  <!-- Vulnerable web app -->
+  <rect x="618" y="266" width="212" height="100" rx="8" fill="#1f1a00" stroke="#d29922" stroke-width="1"/>
+  <text x="724" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#e3b341">WebGoat :9090</text>
+  <text x="724" y="306" text-anchor="middle" font-size="10" fill="#8b949e">Vulnerable web app</text>
+  <text x="724" y="322" text-anchor="middle" font-size="10" fill="#8b949e">SQL injection target</text>
+  <text x="724" y="338" text-anchor="middle" font-size="9" fill="#6e7681">chainbreaker_webapp</text>
+
+  <!-- Vulnerable app → Postgres -->
+  <line x1="724" y1="366" x2="724" y2="430" stroke="#484f58" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="724" y1="430" x2="598" y2="430" stroke="#484f58" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#tip)"/>
+  <text x="658" y="424" font-size="9" fill="#6e7681">via SQLi</text>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- ATTACK ARROWS -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- nmap → discovered ports -->
+  <line x1="250" y1="168" x2="360" y2="164" stroke="#e24b4a" stroke-width="1.5" marker-end="url(#red)"/>
+  <text x="300" y="158" text-anchor="middle" font-size="9" fill="#e24b4a">scan</text>
+
+  <!-- hydra → keycloak -->
+  <path d="M250 256 C295 256 320 316 378 316" stroke="#e24b4a" stroke-width="1.5" fill="none" marker-end="url(#red)"/>
+  <text x="300" y="278" text-anchor="middle" font-size="9" fill="#e24b4a">brute force</text>
+
+  <!-- sqlmap → webapp -->
+  <path d="M250 344 C310 344 560 344 618 316" stroke="#e24b4a" stroke-width="1.5" fill="none" marker-end="url(#red)"/>
+  <text x="430" y="334" text-anchor="middle" font-size="9" fill="#e24b4a">SQL inject</text>
+
+  <!-- Discovered ports → Docker host arrow -->
+  <line x1="460" y1="196" x2="460" y2="216" stroke="#1f6feb" stroke-width="1" marker-end="url(#blue)"/>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- LEGEND -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <rect x="30" y="575" width="840" height="34" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+
+  <rect x="50" y="586" width="12" height="12" rx="2" fill="#2d0f0f" stroke="#e24b4a" stroke-width="1"/>
+  <text x="68" y="596" font-size="10" fill="#8b949e">Attacker zone</text>
+
+  <rect x="160" y="586" width="12" height="12" rx="2" fill="#0f1f2e" stroke="#1f6feb" stroke-width="1"/>
+  <text x="178" y="596" font-size="10" fill="#8b949e">Target network</text>
+
+  <rect x="280" y="586" width="12" height="12" rx="2" fill="#1a0d2e" stroke="#8957e5" stroke-width="1"/>
+  <text x="298" y="596" font-size="10" fill="#8b949e">Keycloak (auth)</text>
+
+  <rect x="410" y="586" width="12" height="12" rx="2" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="428" y="596" font-size="10" fill="#8b949e">PostgreSQL (DB)</text>
+
+  <line x1="546" y1="592" x2="572" y2="592" stroke="#e24b4a" stroke-width="1.5" marker-end="url(#red)"/>
+  <text x="578" y="596" font-size="10" fill="#8b949e">Attack flow</text>
+
+  <line x1="660" y1="592" x2="686" y2="592" stroke="#484f58" stroke-width="1" stroke-dasharray="4 2" marker-end="url(#tip)"/>
+  <text x="692" y="596" font-size="10" fill="#8b949e">Internal / SQLi</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#e24b4a" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#1f6feb" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+    <marker id="tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#484f58" stroke-width="1.5" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+</svg>
