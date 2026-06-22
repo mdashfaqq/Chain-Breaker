@@ -1,0 +1,215 @@
+# Day 2 Progress — SOC Infrastructure & Security Pipeline
+
+## Overview
+
+During Day 2, we successfully expanded the SOC architecture by integrating multiple cybersecurity layers including SIEM, IDS, WAF, attack simulation, centralized logging, and active response mechanisms.
+
+---
+
+# Components Configured
+
+## 1. Wazuh SIEM Setup
+
+* Deployed Wazuh using Docker containers.
+* Configured:
+
+  * Wazuh Manager
+  * Wazuh Dashboard
+  * Wazuh Indexer
+* Verified container health and service availability.
+* Connected Kali Linux as a monitored Wazuh agent.
+* Validated agent communication and event flow.
+
+### Features Achieved
+
+* Centralized log monitoring
+* Security event visualization
+* MITRE ATT&CK mapping
+* Alert dashboards
+* Agent monitoring
+
+---
+
+# 2. Attack Simulation Environment
+
+## Kali Linux Attacker VM
+
+Used Kali Linux to simulate:
+
+* Network reconnaissance
+* Brute force attacks
+* SQL injection attacks
+
+### Tools Used
+
+* Nmap
+* Hydra
+* SQLMap
+
+---
+
+# 3. IDS Integration — Suricata
+
+Configured Suricata IDS to monitor network traffic and generate alerts.
+
+### Alerts Observed
+
+* Kali Linux DHCP detection
+* Spotify P2P detection
+* Network anomaly monitoring
+
+### Integration
+
+* Suricata logs forwarded into Wazuh
+* Events visible inside Wazuh dashboard
+
+---
+
+# 4. Active Response Configuration
+
+Configured Wazuh active response functionality.
+
+### Features
+
+* Automated response triggering
+* Restart scripts executed upon specific alerts
+* Alert monitoring through:
+
+  * active-responses.log
+  * alerts.json
+
+---
+
+# 5. WAF Deployment — ModSecurity + OWASP CRS
+
+Deployed ModSecurity Web Application Firewall using Docker.
+
+### Technologies
+
+* Nginx
+* ModSecurity
+* OWASP Core Rule Set (CRS)
+
+### WAF Capabilities
+
+* SQL Injection detection
+* Request blocking
+* HTTP 403 response generation
+* CRS rule enforcement
+
+---
+
+# 6. SQL Injection Detection Testing
+
+Executed SQL injection payloads against the WAF.
+
+### Payload Used
+
+?id=' OR 1=1 --
+
+### Results
+
+* Request blocked successfully
+* 403 Forbidden returned
+* ModSecurity alerts generated
+
+### Triggered CRS Rules
+
+* REQUEST-949-BLOCKING-EVALUATION.conf
+* Inbound Anomaly Score Exceeded
+
+---
+
+# 7. WAF → SIEM Integration
+
+Integrated ModSecurity logs into Wazuh SIEM.
+
+### Workflow
+
+Attack
+↓
+ModSecurity detects malicious payload
+↓
+Request blocked
+↓
+Logs generated
+↓
+Wazuh ingests logs
+↓
+Dashboard visualization created
+
+### Wazuh Alerts Generated
+
+* ModSecurity rejected a query
+* nginx web alerts
+* modsecurity rule alerts
+
+---
+
+# 8. Dashboard Visualization
+
+Validated live dashboards inside Wazuh.
+
+### Visualizations Confirmed
+
+* Alert evolution
+* Top agents
+* MITRE ATT&CK mapping
+* Security event monitoring
+* Agent activity
+
+---
+
+# 9. Security Pipeline Achieved
+
+Final integrated architecture:
+
+Kali Attacker
+↓
+ModSecurity WAF
+↓
+Suricata IDS
+↓
+Wazuh SIEM
+↓
+Centralized Dashboard
+↓
+Active Response
+
+---
+
+# Technologies Used
+
+* Wazuh
+* Docker
+* Kali Linux
+* Suricata
+* ModSecurity
+* Nginx
+* OWASP CRS
+* SQLMap
+* Hydra
+* Nmap
+
+---
+
+# Current Status
+
+## Successfully Implemented
+
+* SIEM
+* IDS
+* WAF
+* Attack Simulation
+* Log Correlation
+* Active Response
+* Dashboard Visualization
+* MITRE ATT&CK Mapping
+
+## Remaining Components
+
+* IAM Layer (Keycloak)
+* SOAR Integration
+* Final Presentation & Documentation
+
+---
